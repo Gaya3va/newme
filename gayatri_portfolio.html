@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gayatri Akalwadi — Writing Samples</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --card: #161616;
+    --accent: #f5e642;
+    --accent2: #ff6b35;
+    --text: #f0ede6;
+    --muted: #666;
+    --border: #222;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: all 0.3s ease;
+    mix-blend-mode: difference;
+  }
+
+  /* Noise overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 6vw;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(245,230,66,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(245,230,66,0.3);
+    display: inline-block;
+    padding: 6px 14px;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.2s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 10vw, 120px);
+    font-weight: 900;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    margin-bottom: 30px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+
+  .hero-name span {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .hero-sub {
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    max-width: 480px;
+    line-height: 1.8;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.6s forwards;
+  }
+
+  .hero-sub strong { color: var(--text); }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 6vw;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 1.2s forwards;
+  }
+
+  .scroll-hint::before {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--muted);
+    display: block;
+    animation: expandLine 1s ease 1.5s both;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 60px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .section-label::before {
+    content: '';
+    width: 30px;
+    height: 1px;
+    background: var(--muted);
+  }
+
+  /* SCRIPTS SECTION */
+  .scripts-section {
+    padding: 100px 6vw;
+  }
+
+  .scripts-grid {
+    display: grid;
+    gap: 2px;
+  }
+
+  /* SCRIPT CARD */
+  .script-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .script-card.visible {
+    animation: fadeUp 0.7s ease forwards;
+  }
+
+  .script-card:hover {
+    border-color: var(--accent);
+  }
+
+  .card-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 20px;
+    padding: 28px 36px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .card-header:hover { background: rgba(245,230,66,0.03); }
+
+  .card-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--border);
+    line-height: 1;
+    transition: color 0.3s ease;
+    width: 60px;
+  }
+
+  .script-card:hover .card-num { color: var(--accent); }
+
+  .card-meta { }
+
+  .card-format {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 6px;
+  }
+
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(18px, 2.5vw, 26px);
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  .card-topic {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 6px;
+    letter-spacing: 0.05em;
+  }
+
+  .toggle-btn {
+    width: 36px; height: 36px;
+    border: 1px solid var(--border);
+    background: none;
+    color: var(--muted);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .script-card.open .toggle-btn {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: rotate(45deg);
+  }
+
+  .card-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .script-card.open .card-body {
+    max-height: 2000px;
+  }
+
+  .card-content {
+    padding: 40px 36px 40px 116px;
+  }
+
+  .script-text {
+    font-size: 14px;
+    line-height: 2;
+    color: #c8c4bc;
+    white-space: pre-line;
+  }
+
+  .script-text .hook {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--text);
+    border-left: 3px solid var(--accent);
+    padding-left: 20px;
+    margin-bottom: 28px;
+    line-height: 1.6;
+    display: block;
+  }
+
+  .script-text .section-title {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 28px 0 12px;
+    display: block;
+  }
+
+  .script-text .body-text {
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .script-text .cta {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    color: var(--accent2);
+    font-size: 15px;
+    display: block;
+    margin-top: 28px;
+  }
+
+  /* CAROUSEL SLIDES */
+  .carousel-wrapper {
+    position: relative;
+  }
+
+  .slides-container {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding-bottom: 8px;
+  }
+  .slides-container::-webkit-scrollbar { display: none; }
+
+  .slide {
+    min-width: 260px;
+    max-width: 260px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 28px 24px;
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .slide-num {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .slide-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--accent);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .slide-body {
+    font-size: 12px;
+    color: #aaa;
+    line-height: 1.7;
+  }
+
+  .slide:first-child {
+    background: var(--accent);
+  }
+  .slide:first-child .slide-num { color: rgba(0,0,0,0.4); }
+  .slide:first-child .slide-title {
+    font-size: 20px;
+    color: #000;
+    line-height: 1.2;
+  }
+  .slide:first-child .slide-body { color: rgba(0,0,0,0.6); font-size: 13px; }
+
+  /* ABOUT STRIP */
+  .about-strip {
+    padding: 80px 6vw;
+    border-top: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .about-left .big-text {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+
+  .about-left .big-text em {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .about-right {
+    display: grid;
+    gap: 24px;
+  }
+
+  .stat-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stat-row:last-child { border-bottom: none; }
+
+  .stat-icon {
+    font-size: 20px;
+    width: 32px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .stat-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  /* FEED SECTION */
+  .feed-section {
+    padding: 100px 6vw;
+    border-top: 1px solid var(--border);
+  }
+
+  .feed-intro {
+    max-width: 560px;
+    margin-bottom: 60px;
+  }
+
+  .feed-intro h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .feed-intro h2 em { color: var(--accent); font-style: italic; }
+
+  .feed-intro p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.9;
+  }
+
+  .feed-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2px;
+  }
+
+  .feed-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 28px;
+    transition: border-color 0.3s, background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .feed-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 0;
+    background: var(--accent);
+    transition: height 0.3s ease;
+  }
+
+  .feed-card:hover::before { height: 100%; }
+  .feed-card:hover { border-color: rgba(245,230,66,0.3); background: #1a1a1a; }
+
+  .feed-category {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 14px;
+  }
+
+  .feed-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .feed-what {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+
+  .feed-learned {
+    font-size: 11px;
+    color: #888;
+    line-height: 1.6;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+
+  .feed-learned strong { color: var(--accent); }
+
+  /* FEED DROPDOWN */
+  .feed-dropdown {
+    border: 1px solid var(--border);
+  }
+
+  .feed-toggle {
+    width: 100%;
+    background: var(--card);
+    border: none;
+    padding: 28px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: background 0.2s;
+    gap: 20px;
+  }
+
+  .feed-toggle:hover { background: #1a1a1a; }
+
+  .feed-toggle-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .feed-toggle-label {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--text);
+  }
+
+  .feed-toggle-meta {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .feed-toggle-icon {
+    font-size: 24px;
+    color: var(--accent);
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+    font-family: 'DM Mono', monospace;
+    font-weight: 300;
+  }
+
+  .feed-dropdown.open .feed-toggle-icon {
+    transform: rotate(45deg);
+  }
+
+  .feed-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.6s cubic-bezier(0.4,0,0.2,1);
+    border-top: 0px solid var(--border);
+  }
+
+  .feed-dropdown.open .feed-body {
+    max-height: 3000px;
+    border-top: 1px solid var(--border);
+  }
+
+  .feed-body .feed-grid {
+    padding: 24px;
+  }
+
+  /* FOOTER CTA */
+  .footer-cta {
+    padding: 100px 6vw;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .footer-cta .big-cta {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 7vw, 80px);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 40px;
+  }
+
+  .footer-cta .big-cta span { color: var(--accent); font-style: italic; }
+
+  .cta-btn {
+    display: inline-block;
+    background: var(--accent);
+    color: #000;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 18px 48px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .cta-btn:hover {
+    background: var(--accent2);
+    color: #fff;
+    transform: translateY(-2px);
+  }
+
+  .footer-note {
+    margin-top: 24px;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 0;
+    background: var(--surface);
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 60px;
+    animation: marquee 18s linear infinite;
+    white-space: nowrap;
+  }
+
+  .marquee-item {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+
+  .marquee-item span { color: var(--accent); margin-right: 60px; }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes expandLine {
+    from { width: 0; }
+    to { width: 40px; }
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    .card-content { padding: 32px 24px; }
+    .card-header { padding: 24px; gap: 16px; }
+    .card-num { font-size: 36px; width: 44px; }
+    .about-strip { grid-template-columns: 1fr; gap: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="tag">Writing Samples · 2025</span>
+  <h1 class="hero-name">Gayatri<br><span>Akalwadi.</span></h1>
+  <p class="hero-sub">
+    CS student. Obsessive content consumer.<br>
+    I study <strong>why things work</strong> — across AI, creator economy, and business.<br>
+    This isn't a résumé. It's <strong>proof of taste.</strong>
+  </p>
+  <div class="scroll-hint">SCROLL TO SEE THE WORK</div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Short-Form Scripts <span>✦</span></span>
+    <span class="marquee-item">Carousel Copy <span>✦</span></span>
+    <span class="marquee-item">YouTube Hooks <span>✦</span></span>
+    <span class="marquee-item">Content Strategy <span>✦</span></span>
+    <span class="marquee-item">AI & Tech <span>✦</span></span>
+    <span class="marquee-item">Creator Economy <span>✦</span></span>
+    <span class="marquee-item">Business Storytelling <span>✦</span></span>
+    <span class="marquee-item">Short-Form Scripts <span>✦</span></span>
+    <span class="marquee-item">Carousel Copy <span>✦</span></span>
+    <span class="marquee-item">YouTube Hooks <span>✦</span></span>
+    <span class="marquee-item">Content Strategy <span>✦</span></span>
+    <span class="marquee-item">AI & Tech <span>✦</span></span>
+    <span class="marquee-item">Creator Economy <span>✦</span></span>
+    <span class="marquee-item">Business Storytelling <span>✦</span></span>
+  </div>
+</div>
+
+<!-- SCRIPTS -->
+<section class="scripts-section">
+  <div class="section-label">Three Writing Samples</div>
+
+  <div class="scripts-grid">
+
+    <!-- SCRIPT 1 -->
+    <div class="script-card" id="card1">
+      <div class="card-header" onclick="toggleCard('card1')">
+        <div class="card-num">01</div>
+        <div class="card-meta">
+          <div class="card-format">Short-Form Reel · 30–45 sec</div>
+          <div class="card-title">Consistency isn't why they're winning.</div>
+          <div class="card-topic">Topic — Creator Economy / Content Growth</div>
+        </div>
+        <button class="toggle-btn">+</button>
+      </div>
+      <div class="card-body">
+        <div class="card-content">
+          <div class="script-text">
+            <span class="hook">"The creator who posts every day and the creator who posts once a week — same niche, same quality. One has 2 lakh followers. One has 2000. The difference isn't consistency."</span>
+
+            <span class="section-title">— Body —</span>
+            <span class="body-text">It's <em>positioning.</em>
+
+The daily creator is posting content.
+The weekly creator is posting <em>events.</em>
+
+When you post every day, people scroll past you.
+When you post once a week — with the right hook, the right idea —
+people <em>wait</em> for you.
+
+MrBeast doesn't post daily.
+Kunal Shah doesn't post daily.
+Naval Ravikant doesn't post daily.
+
+They post <em>intentionally.</em>
+
+The algorithm doesn't reward frequency.
+It rewards watch time, saves, and shares.
+
+And you only get those when the content actually <em>matters.</em></span>
+
+            <span class="cta">→ Stop feeding the algorithm. Start feeding your audience.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 2 — CAROUSEL -->
+    <div class="script-card" id="card2">
+      <div class="card-header" onclick="toggleCard('card2')">
+        <div class="card-num">02</div>
+        <div class="card-meta">
+          <div class="card-format">7-Slide Carousel</div>
+          <div class="card-title">5 AI tools that make you look like a team of 10.</div>
+          <div class="card-topic">Topic — AI & Tech Trends</div>
+        </div>
+        <button class="toggle-btn">+</button>
+      </div>
+      <div class="card-body">
+        <div class="card-content">
+          <div class="carousel-wrapper">
+            <div class="slides-container">
+              <div class="slide">
+                <div class="slide-num">01 / 07</div>
+                <div class="slide-title">5 AI tools that make you look like a team of 10.<br><br>Saving this will save you 20 hours a week.</div>
+                <div class="slide-body">Swipe → </div>
+              </div>
+              <div class="slide">
+                <div class="slide-num">02 / 07</div>
+                <div class="slide-title">Claude (Anthropic)</div>
+                <div class="slide-body">Not just a chatbot. Give it your messy ideas → it gives you structured scripts, strategies, and full content plans. Think of it as your smartest intern who never sleeps.</div>
+              </div>
+              <div class="slide">
+                <div class="slide-num">03 / 07</div>
+                <div class="slide-title">Perplexity AI</div>
+                <div class="slide-body">Google, but it actually reads the links for you. Research that used to take 2 hours = 10 minutes. Creators use this to find data-backed hooks that sound original.</div>
+              </div>
+              <div class="slide">
+                <div class="slide-num">04 / 07</div>
+                <div class="slide-title">Descript</div>
+                <div class="slide-body">Edit videos by editing text. Delete a word in the transcript → the video clip disappears. Editors who don't use this are losing 3 hours per video.</div>
+              </div>
+              <div class="slide">
+                <div class="slide-num">05 / 07</div>
+                <div class="slide-title">ElevenLabs</div>
+                <div class="slide-body">Your voice. Cloned. In 60 seconds. Post in English, Hindi, Tamil — without recording again. Regional reach just became a one-click thing.</div>
+              </div>
+              <div class="slide">
+                <div class="slide-num">06 / 07</div>
+                <div class="slide-title">Notion AI</div>
+                <div class="slide-body">Your second brain — that actually thinks back. Dump your raw ideas → it organises, summarises, and finds connections you missed. Every creator's chaos needs this.</div>
+              </div>
+              <div class="slide">
+                <div class="slide-num">07 / 07</div>
+                <div class="slide-title">The bottom line →</div>
+                <div class="slide-body">The creators winning in 2025 aren't working harder. They're working with better tools. Save this. Use one. Thank yourself later.</div>
+              </div>
+            </div>
+          </div>
+          <p style="font-size:11px;color:var(--muted);margin-top:16px;letter-spacing:0.05em;">← scroll the carousel above →</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 3 -->
+    <div class="script-card" id="card3">
+      <div class="card-header" onclick="toggleCard('card3')">
+        <div class="card-num">03</div>
+        <div class="card-meta">
+          <div class="card-format">YouTube Long-Form Hook · First 90 sec</div>
+          <div class="card-title">In 2007, a man walked into a pitch meeting and deliberately said the wrong thing.</div>
+          <div class="card-topic">Topic — Business & Entrepreneurship</div>
+        </div>
+        <button class="toggle-btn">+</button>
+      </div>
+      <div class="card-body">
+        <div class="card-content">
+          <div class="script-text">
+            <span class="hook">"In 2007, a man walked into the most important meeting of his life and deliberately said the wrong thing."</span>
+
+            <span class="section-title">— Cold Open —</span>
+            <span class="body-text">He was pitching his startup to one of the biggest investors in Silicon Valley.
+The investor asked: 'What's your 5-year plan?'
+
+And he said — 'I don't have one.'
+
+The investor almost walked out.
+But then he explained something that changed how I think about building anything.
+
+He said:
+'A 5-year plan assumes the world stays the same for 5 years.
+I'm not building for the world as it is.
+I'm building for the world as it's becoming.'
+
+That startup was Airbnb.
+And that answer is the reason most businesses fail before they even start.</span>
+
+            <span class="section-title">— Bridge —</span>
+            <span class="body-text">Here's what nobody tells you about business plans:
+
+The goal of a plan isn't to predict the future.
+The goal is to force you to think — so when the future surprises you, you're not starting from zero.
+
+Most people either over-plan and never execute —
+or they execute without thinking and hit a wall they could've seen coming.
+
+The sweet spot? It's called a directional strategy.
+And in this video, I'm going to break down exactly what that means —
+using 3 companies that had no idea what they were building until the market told them.</span>
+
+            <span class="cta">→ Stay till the end — the third company is one you use every day, and their 'original plan' will genuinely shock you.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-strip">
+  <div class="about-left">
+    <div class="big-text">Not a writer.<br>A <em>thinker</em><br>who writes.</div>
+    <p style="font-size:13px;color:var(--muted);line-height:1.9;max-width:380px;">
+      I don't just consume content — I dissect it. What made that hook stop the scroll? Why did that carousel get 10k saves? What's the one word that changed the whole script?<br><br>
+      That's what I bring. Not just words — <strong style="color:var(--text)">pattern recognition.</strong>
+    </p>
+  </div>
+  <div class="about-right">
+    <div class="stat-row">
+      <div class="stat-icon">📍</div>
+      <div>
+        <div class="stat-label">Based in</div>
+        <div class="stat-value">Bangalore, India<br>CMRIT — CS Engineering</div>
+      </div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-icon">🧠</div>
+      <div>
+        <div class="stat-label">What I study obsessively</div>
+        <div class="stat-value">AI tools · Creator strategy<br>Viral content mechanics · Business storytelling</div>
+      </div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-icon">⚡</div>
+      <div>
+        <div class="stat-label">What I bring to the team</div>
+        <div class="stat-value">Accountability · Loyalty<br>Ideas that actually work · Fast learning</div>
+      </div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-icon">🎯</div>
+      <div>
+        <div class="stat-label">Content taste</div>
+        <div class="stat-value">High. Ruthlessly high.<br>I can tell you why a video works in 10 seconds.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTENT FEED SECTION -->
+<section class="feed-section">
+  <div class="feed-intro">
+    <h2>I don't just watch content.<br>I <em>study</em> it.</h2>
+    <p>Here's what's actually in my feed — and what I took away from each. This isn't a name-drop. It's how I build taste.</p>
+  </div>
+
+  <div class="feed-dropdown">
+    <button class="feed-toggle" onclick="toggleFeed()">
+      <div class="feed-toggle-left">
+        <span class="feed-toggle-label">Content I Consume</span>
+        <span class="feed-toggle-meta">7 creators · AI · Creator Economy · Instagram Growth</span>
+      </div>
+      <span class="feed-toggle-icon" id="feedIcon">+</span>
+    </button>
+    <div class="feed-body" id="feedBody">
+      <div class="feed-grid">
+
+    <div class="feed-card">
+      <div class="feed-category">AI Tools · 2-Day Deep Dive</div>
+      <div class="feed-name">Vaibhav Sisinty — OutSkill</div>
+      <div class="feed-what">Spent 2 full days with his Gen AI tools content. Not skimming — taking notes, building.</div>
+      <div class="feed-learned"><strong>What I learned:</strong> How to use AI not as a shortcut but as a force multiplier. The difference between people who prompt and people who think.</div>
+    </div>
+
+    <div class="feed-card">
+      <div class="feed-category">AI Agents · 7-Day Bootcamp</div>
+      <div class="feed-name">Albert Shiney — 7-Day AI Automation</div>
+      <div class="feed-what">Went through his full AI agents automation challenge. Built things, broke things, understood things.</div>
+      <div class="feed-learned"><strong>What I learned:</strong> Automation isn't about replacing work — it's about removing the friction between your idea and its execution.</div>
+    </div>
+
+    <div class="feed-card">
+      <div class="feed-category">Thinking at Scale · Dubai 1B Summit</div>
+      <div class="feed-name">Ishan Sharma</div>
+      <div class="feed-what">Followed his journey and content around the 1 Billion Summit in Dubai. Understood how creators think about legacy, not just reach.</div>
+      <div class="feed-learned"><strong>What I learned:</strong> The gap between a 10 lakh creator and a 1 billion creator isn't content — it's how they think about value creation.</div>
+    </div>
+
+    <div class="feed-card">
+      <div class="feed-category">AI × Creator Economy · Dubai 1B Summit</div>
+      <div class="feed-name">v.i.s.h.ai</div>
+      <div class="feed-what">Studies how AI intersects with personal branding and business at the highest level.</div>
+      <div class="feed-learned"><strong>What I learned:</strong> The creators who will win the next 5 years are the ones building AI into their workflow now — not later.</div>
+    </div>
+
+    <div class="feed-card">
+      <div class="feed-category">Women in Tech + Creator · Dubai 1B Summit</div>
+      <div class="feed-name">gayatri.tech</div>
+      <div class="feed-what">Proof that you can build a brand at the intersection of tech and content and be taken seriously at rooms like the 1B Summit.</div>
+      <div class="feed-learned"><strong>What I learned:</strong> Your niche doesn't have to be one thing. The intersection IS the niche.</div>
+    </div>
+
+    <div class="feed-card">
+      <div class="feed-category">Short-Form Hooks · Instagram Mechanics</div>
+      <div class="feed-name">YourNishant</div>
+      <div class="feed-what">Studied his hook writing and how he grabs attention in the first 2 seconds of a reel.</div>
+      <div class="feed-learned"><strong>What I learned:</strong> A hook isn't an intro — it's a promise. The best hooks create an itch the viewer can only scratch by watching till the end.</div>
+    </div>
+
+    <div class="feed-card">
+      <div class="feed-category">How Instagram Works · Explainer Format</div>
+      <div class="feed-name">EzeExplains — Co-founder, Maya.pro</div>
+      <div class="feed-what">Watched his breakdowns of how Instagram's algorithm actually works — not the theory, the mechanics.</div>
+      <div class="feed-learned"><strong>What I learned:</strong> The algorithm doesn't decide who sees your content. Your audience does — the algorithm just amplifies the signal they give it.</div>
+    </div>
+
+    <div class="feed-card" style="border-color: rgba(245,230,66,0.2); background: rgba(245,230,66,0.03);">
+      <div class="feed-category" style="color: var(--accent);">The Pattern I See</div>
+      <div class="feed-name" style="color: var(--accent);">Why this matters to you</div>
+      <div class="feed-what">Every person above is building at the intersection of <strong style="color:var(--text)">AI + content + business.</strong> That's not a coincidence. That's where everything is moving.</div>
+      <div class="feed-learned"><strong>That's exactly the space I want to build in. With you.</strong></div>
+    </div>
+
+      </div><!-- end feed-grid -->
+    </div><!-- end feed-body -->
+  </div><!-- end feed-dropdown -->
+</section>
+<section class="footer-cta">
+  <div class="big-cta">Ready when<br>you <span>are.</span></div>
+  <a href="https://www.instagram.com/gayatri_akalwadi" target="_blank" class="cta-btn">Connect on Instagram</a>
+  <p class="footer-note">I believe the best way to show what I can do is to actually do it.<br>This page is my application.</p>
+</section>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx - 6 + 'px';
+    cursor.style.top = my - 6 + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx - 18 + 'px';
+    ring.style.top = ry - 18 + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  // Toggle feed dropdown
+  function toggleFeed() {
+    const dropdown = document.querySelector('.feed-dropdown');
+    dropdown.classList.toggle('open');
+  }
+
+  // Toggle cards
+  function toggleCard(id) {
+    const card = document.getElementById(id);
+    card.classList.toggle('open');
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, i * 120);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.script-card').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
